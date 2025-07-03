@@ -27,26 +27,6 @@ setopt HIST_SAVE_NO_DUPS        # do not save commands that are duplicates of th
 setopt HIST_REDUCE_BLANKS       # remove superfluous blanks from each command line being added to the history list
 setopt HIST_VERIFY              # show command with history expansion to user before running it
 
-# COMPLETION
-autoload -Uz compinit
-compinit -d ~/.cache/zsh/zcompdump
-
-zstyle ':completion:*:*:*:*:*' menu true select
-zstyle ':completion:*' rehash true
-zstyle ':completion:*' verbose true
-zstyle ':completion:*' use-cache true
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' completer _complete _expand
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*:messages' format $'%F{green}-> %d %f'
-zstyle ':completion:*:descriptions' format $'%F{green}-> %d %f'
-zstyle ':completion:*:default' select-prompt $'%F{green}-> Match: %m  (%p) %f'
-
-zstyle ':completion:*:kill:*:process-groups' hidden true
-zstyle ':completion:*:kill:*:*' command 'ps -u $USER -o pid,comm | grep -v "/System/" | grep -v "/usr/libexec/"'
-
-zstyle ':completion::*:ssh:*:*' ignored-patterns '_*'
-
 # COLORS
 export CLICOLOR=1
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=37;41:sg=30;43:tw=30;42:ow=34;42:"
@@ -95,6 +75,26 @@ if [ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
     ZSH_HIGHLIGHT_STYLES[bracket-level-5]=fg=cyan,bold
     ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=standout
 fi
+
+# COMPLETION
+autoload -Uz compinit
+compinit -d ~/.cache/zsh/zcompdump
+
+zstyle ':completion:*:*:*:*:*' menu true select
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' verbose true
+zstyle ':completion:*' use-cache true
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' completer _complete _expand
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*:messages' format $'%F{green}-> %d %f'
+zstyle ':completion:*:descriptions' format $'%F{green}-> %d %f'
+zstyle ':completion:*:default' select-prompt $'%F{green}-> Match: %m  (%p) %f'
+
+zstyle ':completion:*:kill:*:process-groups' hidden true
+zstyle ':completion:*:kill:*:*' command 'ps -u $USER -o pid,comm | grep -v "/System/" | grep -v "/usr/libexec/"'
+
+zstyle ':completion::*:ssh:*:*' ignored-patterns '_*'
 
 # AUTO-SUGGESTIONS
 if [ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
